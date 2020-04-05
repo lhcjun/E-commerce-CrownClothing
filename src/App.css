@@ -4,6 +4,12 @@ body {
     /* TB LR */
 }
 
+/* header options */
+a {
+    text-decoration: none;
+    color: black;
+}
+
 @font-face {
     font-family: 'Open Sans Condensed';
     font-display: swap;

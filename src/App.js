@@ -3,12 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
 
-const HatsPage = () => (
-  <div>
-    <h1>HATS PAGE</h1>
-  </div>
-)
 
 function App() {
   return (
@@ -18,8 +14,8 @@ function App() {
           <Route exact={true} path='/'>       {/* 3.0  component={HomePage} */}
             <HomePage />
           </Route>
-          <Route exact={true} path='/hats'>   {/*  component={HatsPage} */}
-            <HatsPage />
+          <Route exact={true} path='/shop'>   {/*  component={ShopPage} */}
+            <ShopPage />
           </Route>
         </Switch>
       </Router>

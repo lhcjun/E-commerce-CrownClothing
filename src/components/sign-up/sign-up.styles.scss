@@ -1,0 +1,17 @@
+.sign-up {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+
+    .title {
+        margin: 10px 0;
+    }
+
+    .error {
+        color: rgb(38, 106, 207);
+        font-size: 1.1em;
+        font-weight: bold;
+        display: flex;
+        letter-spacing: .15rem;
+    }
+}

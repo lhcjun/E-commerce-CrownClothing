@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 import './sign-in.styles.scss';
 
 class SignIn extends Component{
@@ -9,13 +9,28 @@ class SignIn extends Component{
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            passwordError: ''
         }
     }
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
-        this.setState({ email: '', password: '' })
+        const { email, password } = this.state;
+        try{
+            // check email & password
+            await auth.signInWithEmailAndPassword(email, password);
+            // if success > clear our form
+            this.setState({ email: '', password: '', passwordError: '' })
+        }catch(err){
+            const errCode = err.code;
+            if(errCode === 'auth/wrong-password'){
+                this.setState({passwordError: 'Invalid email or password'})
+            }else if(errCode === 'auth/user-not-found'){
+                this.setState({passwordError: 'Invalid email or password'})
+            }
+            console.log(err)
+        }
     }
 
     handleChange = event => {
@@ -24,6 +39,7 @@ class SignIn extends Component{
     }
 
     render(){
+        const { email, password, passwordError } = this.state;
         return(
             <div className='sign-in'>
                 <h2>I already have an account</h2>
@@ -33,8 +49,8 @@ class SignIn extends Component{
                     <FormInput 
                         id='email'
                         type='email' 
-                        name='email'  // event.target.name
-                        value={this.state.email}  // event.target.value
+                        name='email'   // event.target.name
+                        value={email}  // event.target.value
                         required 
                         handleChange={this.handleChange}
                         label='email'
@@ -43,11 +59,12 @@ class SignIn extends Component{
                         id='password'
                         type='password' 
                         name='password' 
-                        value={this.state.password} 
+                        value={password} 
                         required 
                         handleChange={this.handleChange}
                         label='password'
                     />
+                    {passwordError && <p className='error'>{passwordError}</p>}
                     <div className='buttons'>
                         <CustomButton type='submit'> Sign In </CustomButton>
                         <CustomButton onClick={signInWithGoogle} type='button' isGoogleSignIn >

@@ -1,3 +1,5 @@
+// pull out from cart reducer
+
 export const addItemToCart = (cartItems, cartItemToAdd) => {  // existing items & new
     const existingCartItem = cartItems.find(
         cartItem => cartItem.id === cartItemToAdd.id
@@ -11,5 +13,5 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {  // existing items 
         )
     }
     // not existing
-    return [...cartItems, {...cartItemToAdd, quantity: 1}]   // first time added
+    return [...cartItems, {...cartItemToAdd, quantity: 1}]   // create quantity
 }           // all items      new item

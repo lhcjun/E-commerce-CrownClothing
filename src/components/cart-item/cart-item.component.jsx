@@ -11,6 +11,4 @@ const CartItem = ({ item: {imageUrl, price, name, quantity} }) => (
     </div>
 );
 
-// 解構 item 參數
-
 export default CartItem;

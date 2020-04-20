@@ -45,12 +45,10 @@ class App extends Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact={true} path='/'>       {/* 3.0  component={HomePage} */}
+            <Route exact={true} path='/'>       
               <HomePage />
             </Route>
-            <Route path='/shop'>
-              <ShopPage />
-            </Route>
+            <Route path='/shop' component={ShopPage} />  {/* 3.0  component={Page} */}
             <Route exact path='/checkout'>
               <CheckoutPage />
             </Route>

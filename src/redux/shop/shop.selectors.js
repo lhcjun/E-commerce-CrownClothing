@@ -9,11 +9,11 @@ export const selectCollections = createSelector(
     shop => shop.collections
 )
 
-// get collections obj value -> array  (for selectCollection - CollectionsOverview)
+// get collections obj value -> array  (CollectionsOverview)
 export const selectCollectionsForPreview = createSelector(
     [selectCollections],
     collections => Object.keys(collections).map(key => collections[key])
-)    // state obj    ->    key array        ->      value array
+)                 // or  Object.values(collections)   value array
 
 
 // pass url params(string value) -> collections state obj -> get corresponding obj (hats)

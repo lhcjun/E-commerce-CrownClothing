@@ -1,0 +1,43 @@
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .area {
+        width: 80%;
+
+        .title {
+            font-size: 28px;
+            margin-bottom: 28px;
+            width: 100%;
+            color: #333333;
+            border-left: 4px solid #948b8d;
+            padding-left: 15px;
+        }
+
+        .content {
+            width: 95%;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 35px;
+            margin-left: auto;
+            letter-spacing: 1.1px;
+
+            .info-first {
+                font-size: 19px;
+                font-weight: bold;
+                letter-spacing: 3px;
+            }
+
+            .info-second {
+                letter-spacing: 2px;
+                margin: 15px;
+            }
+
+            .info-third {
+                margin: 15px;
+            }
+        }
+    }
+}

@@ -7,7 +7,9 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/signIn-and-sigUp/signIn-and-sigUp.component';
 import CheckoutPage from './pages/checkout/checkout.component';
+import ContactPage from './pages/contact/contact.component';
 import Header from './components/header/header.component';
+import ScrollToTop from './components/scroll-to-top/ScrollToTop';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -43,19 +45,24 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Header />
-          <Switch>
-            <Route exact={true} path='/'>       
-              <HomePage />
-            </Route>
-            <Route path='/shop' component={ShopPage} />  {/* 3.0  component={Page} */}
-            <Route exact path='/checkout'>
-              <CheckoutPage />
-            </Route>
-            <Route exact path='/signin'>        {/* 3.0  render */}
-              {this.props.currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage/>}
-            </Route>
-          </Switch>
+          <ScrollToTop>
+            <Header />
+            <Switch>
+              <Route exact={true} path='/'>       
+                <HomePage />
+              </Route>
+              <Route path='/shop' component={ShopPage} />  {/* 3.0  component={Page} */}
+              <Route exact path='/contact'>       
+                <ContactPage />
+              </Route>
+              <Route exact path='/checkout'>
+                <CheckoutPage />
+              </Route>
+              <Route exact path='/signin'>        {/* 3.0  render */}
+                {this.props.currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage/>}
+              </Route>
+            </Switch>
+          </ScrollToTop>
         </Router>
       </div>
     );

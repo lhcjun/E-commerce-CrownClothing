@@ -49,8 +49,8 @@ class SignIn extends Component{
                     <FormInput 
                         id='email'
                         type='email' 
-                        name='email'   // event.target.name
-                        value={email}  // event.target.value
+                        name='email'   /* event.target.name */
+                        value={email}  /* event.target.value */
                         required 
                         handleChange={this.handleChange}
                         label='email'

@@ -9,7 +9,7 @@ const StripeCheckoutButton = ({ price, clearCartAfterPayment }) => {
   const priceForStript = price * 100; // cents = dollars * 100
   const publishableKey = "pk_test_HpdrfhAH2rIpZrDUnAYzcJN300RaDSqqJJ";
 
-  const onToken = (token) => {
+  const onToken = (token) => { 
     // console.log(token);
     alert("Payment Successful");
     clearCartAfterPayment()
@@ -23,9 +23,9 @@ const StripeCheckoutButton = ({ price, clearCartAfterPayment }) => {
       billingAddress
       image={Logo}
       description={`Your total is $${price}`}
-      amount={priceForStript} // cents
+      amount={priceForStript}
       panelLabel="Pay Now"
-      token={onToken} // submit -> callback
+      token={onToken}  /* submit -> callback */
       stripeKey={publishableKey}
     />
   );

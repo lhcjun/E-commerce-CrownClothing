@@ -23,7 +23,7 @@ const StripeCheckoutButton = ({ price, clearCartAfterPayment }) => {
       billingAddress
       image={Logo}
       description={`Your total is $${price}`}
-      amount={priceForStript}
+      amount={priceForStript} /* cents */
       panelLabel="Pay Now"
       token={onToken}  /* submit -> callback */
       stripeKey={publishableKey}

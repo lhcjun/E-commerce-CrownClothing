@@ -8,6 +8,7 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/signIn-and-sigUp/signIn-and-sigUp.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import ContactPage from './pages/contact/contact.component';
+
 import Header from './components/header/header.component';
 import ScrollToTop from './components/scroll-to-top/ScrollToTop';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -24,16 +25,20 @@ class App extends Component {
   componentDidMount(){
     const { setCurrentUser } = this.props;
 
+    //  listen to user login logout event 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth){  /* not  null / sign out */
+      if(userAuth){  // not  null > sign in
+        // get document reference back from firebase.utils
         const userRef = await createUserProfileDocument(userAuth)
 
-        /* To get user data */
+        // listen to doc snapShop obj update > Get user actual data (snapShot) when every update
         userRef.onSnapshot(snapShot => {
+          // set state > sign in
           setCurrentUser({ id: snapShot.id, ...snapShot.data() })
         })
       }else{
-        setCurrentUser(userAuth)  /* null */
+          // set state > sign out
+        setCurrentUser(userAuth)  // null
     }})
   }
 

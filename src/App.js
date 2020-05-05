@@ -11,9 +11,8 @@ import ContactPage from './pages/contact/contact.component';
 
 import Header from './components/header/header.component';
 import ScrollToTop from './components/scroll-to-top/ScrollToTop';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
 
 import './App.css';
 
@@ -23,23 +22,9 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount(){
-    const { setCurrentUser } = this.props;
-
-    //  listen to user login logout event 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth){  // not  null > sign in
-        // get document reference back from firebase.utils
-        const userRef = await createUserProfileDocument(userAuth)
-
-        // listen to doc snapShop obj update > Get user actual data (snapShot) when every update
-        userRef.onSnapshot(snapShot => {
-          // set state > sign in
-          setCurrentUser({ id: snapShot.id, ...snapShot.data() })
-        })
-      }else{
-          // set state > sign out
-        setCurrentUser(userAuth)  // null
-    }})
+    const { checkUserSession } = this.props;
+    // check if user has signed in
+    checkUserSession();
   }
 
   componentWillUnmount(){
@@ -80,7 +65,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
+  checkUserSession: () => dispatch(checkUserSession())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

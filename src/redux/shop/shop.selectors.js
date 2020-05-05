@@ -22,3 +22,16 @@ export const selectCollection = collectionUrlParam => createSelector(
     [selectCollections],
     collections => collections ? collections[collectionUrlParam] : null
 )   // (CollectionPage)
+
+
+// create loading state > pending (CollectionOverview)
+export const selectIsCollectionFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+)
+
+// create loading state > collections finish loaded (null / obj)  (CollectionPage)
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections
+)

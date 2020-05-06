@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { signUpStart } from '../../redux/user/user.actions';
 import './sign-up.styles.scss';
 
 class SignUp extends Component {
@@ -19,39 +20,42 @@ class SignUp extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         const { displayName, email, password, confirmPassword } = this.state;
+        const { signUpStart } = this.props;
         // check password
         if(password !== confirmPassword){
             alert("Passwords don't match");
             return; // exit
         }
-        try{
-            // create new user
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+        // try{
+        //     // create new user
+        //     const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
-            // Send to firebase for firebase to get user data
-            await createUserProfileDocument(user, {displayName});
-            // if success > clear our form
-            this.setState({
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-                passwordError: ''
-            })
-        }catch(err){
-            // fail > err
-            const errCode = err.code;
-            if(errCode === 'auth/weak-password'){
-                this.setState({passwordError: 'Password too short'})
-            }else if(errCode === 'auth/email-already-in-use'){
-                this.setState({passwordError: 'Email already in use'})
-            }else if(errCode === 'auth/invalid-email'){
-                this.setState({passwordError: 'The email address is badly formatted'})
-            }else if(errCode === 'auth/operation-not-allowed'){
-                this.setState({passwordError: 'Email / password accounts are not enabled'})
-            }
-            console.log(err);
-        }
+        //     // Send to firebase for firebase to get user data
+        //     await createUserProfileDocument(user, {displayName});
+        //     // if success > clear our form
+        //     this.setState({
+        //         displayName: '',
+        //         email: '',
+        //         password: '',
+        //         confirmPassword: '',
+        //         passwordError: ''
+        //     })
+            
+        // }catch(err){
+        //     // fail > err
+        //     const errCode = err.code;
+        //     if(errCode === 'auth/weak-password'){
+        //         this.setState({passwordError: 'Password too short'})
+        //     }else if(errCode === 'auth/email-already-in-use'){
+        //         this.setState({passwordError: 'Email already in use'})
+        //     }else if(errCode === 'auth/invalid-email'){
+        //         this.setState({passwordError: 'The email address is badly formatted'})
+        //     }else if(errCode === 'auth/operation-not-allowed'){
+        //         this.setState({passwordError: 'Email / password accounts are not enabled'})
+        //     }
+        //     console.log(err);
+        // }
+        signUpStart({ displayName, email, password });
     }
 
     handleChange = event =>{
@@ -99,11 +103,15 @@ class SignUp extends Component {
                         required
                     />
                     {passwordError && <p className='error'>{this.state.passwordError}</p>}
-                    <CustomButton type='submit'>Sign Up</CustomButton>
+                    <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
             </div>
         )
     }
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+    signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

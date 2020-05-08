@@ -10,8 +10,7 @@ class SignIn extends Component{
         super(props);
         this.state = {
             email: '',
-            password: '',
-            passwordError: ''
+            password: ''
         }
     }
 
@@ -19,21 +18,8 @@ class SignIn extends Component{
         event.preventDefault();
         const { email, password } = this.state;
         const { emailSignInStart } = this.props;
-        try{
-            // // check email & password
-            // await auth.signInWithEmailAndPassword(email, password);
-            // // if success > clear our form
-            // this.setState({ email: '', password: '', passwordError: '' })
-            emailSignInStart(email, password);
-        }catch(err){
-            const errCode = err.code;
-            if(errCode === 'auth/wrong-password'){
-                this.setState({passwordError: 'Invalid email or password'})
-            }else if(errCode === 'auth/user-not-found'){
-                this.setState({passwordError: 'Invalid email or password'})
-            }
-            console.log(err)
-        }
+            
+        emailSignInStart(email, password);
     }
 
     handleChange = event => {
@@ -42,8 +28,8 @@ class SignIn extends Component{
     }
 
     render(){
-        const { email, password, passwordError } = this.state;
-        const { googleSignInStart } = this.props;
+        const { email, password } = this.state;
+        const { googleSignInStart, errorMessage } = this.props;
         return(
             <div className='sign-in'>
                 <h2>I already have an account</h2>
@@ -68,7 +54,7 @@ class SignIn extends Component{
                         handleChange={this.handleChange}
                         label='password'
                     />
-                    {passwordError && <p className='error'>{passwordError}</p>}
+                    {errorMessage && <p className='error'>{errorMessage}</p>}
                     <div className='buttons'>
                         <CustomButton type='submit'> Sign In </CustomButton>
                         <CustomButton onClick={googleSignInStart} type='button' isGoogleSignIn >
@@ -81,9 +67,13 @@ class SignIn extends Component{
     }
 };
 
+const mapStateToProps = ({ user: { errorMessage } }) => ({
+    errorMessage
+});
+
 const mapDispatchToProps = dispatch => ({
     googleSignInStart: () => dispatch(googleSignInStart()),
     emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

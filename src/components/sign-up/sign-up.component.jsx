@@ -12,8 +12,7 @@ class SignUp extends Component {
             displayName: '',
             email: '',
             password: '',
-            confirmPassword: '',
-            passwordError: ''
+            confirmPassword: ''
         }
     }
 
@@ -26,35 +25,7 @@ class SignUp extends Component {
             alert("Passwords don't match");
             return; // exit
         }
-        // try{
-        //     // create new user
-        //     const { user } = await auth.createUserWithEmailAndPassword(email, password)
-
-        //     // Send to firebase for firebase to get user data
-        //     await createUserProfileDocument(user, {displayName});
-        //     // if success > clear our form
-        //     this.setState({
-        //         displayName: '',
-        //         email: '',
-        //         password: '',
-        //         confirmPassword: '',
-        //         passwordError: ''
-        //     })
-            
-        // }catch(err){
-        //     // fail > err
-        //     const errCode = err.code;
-        //     if(errCode === 'auth/weak-password'){
-        //         this.setState({passwordError: 'Password too short'})
-        //     }else if(errCode === 'auth/email-already-in-use'){
-        //         this.setState({passwordError: 'Email already in use'})
-        //     }else if(errCode === 'auth/invalid-email'){
-        //         this.setState({passwordError: 'The email address is badly formatted'})
-        //     }else if(errCode === 'auth/operation-not-allowed'){
-        //         this.setState({passwordError: 'Email / password accounts are not enabled'})
-        //     }
-        //     console.log(err);
-        // }
+        // dispatch action > Send to firebase for firebase to get user data (create new one if none)
         signUpStart({ displayName, email, password });
     }
 
@@ -64,7 +35,8 @@ class SignUp extends Component {
     }
 
     render(){
-        const { displayName, email, password, confirmPassword, passwordError } = this.state;
+        const { displayName, email, password, confirmPassword } = this.state;
+        const { errorMessage }= this.props;
         return(
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -102,7 +74,7 @@ class SignUp extends Component {
                         label='Confirm Password'
                         required
                     />
-                    {passwordError && <p className='error'>{this.state.passwordError}</p>}
+                    {errorMessage && <p className='error'>{errorMessage}</p>}
                     <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
             </div>
@@ -110,8 +82,12 @@ class SignUp extends Component {
     }
 }
 
+const mapStateToProps = ({ user: { errorMessage } }) => ({
+    errorMessage
+});
+
 const mapDispatchToProps = dispatch => ({
     signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
 });
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

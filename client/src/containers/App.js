@@ -3,18 +3,17 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-import SignInAndSignUpPage from './pages/signIn-and-sigUp/signIn-and-sigUp.component';
-import CheckoutPage from './pages/checkout/checkout.component';
-import ContactPage from './pages/contact/contact.component';
+import HomePage from '../pages/homepage/homepage.component';
+import ShopPage from '../pages/shop/shop.component';
+import SignInAndSignUpPage from '../pages/signIn-and-sigUp/signIn-and-signUp.component';
+import CheckoutPage from '../pages/checkout/checkout.component';
+import ContactPage from '../pages/contact/contact.component';
 
-import Header from './components/header/header.component';
-import ScrollToTop from './components/scroll-to-top/ScrollToTop';
-import { selectCurrentUser } from './redux/user/user.selectors';
-import { checkUserSession } from './redux/user/user.actions';
-
-import './App.css';
+import Header from '../components/header/header.component';
+import ScrollToTop from '../components/scroll-to-top/ScrollToTop';
+import { selectCurrentUser } from '../redux/user/user.selectors';
+import { checkUserSession } from '../redux/user/user.actions';
+import { GlobalStyle } from '../global.styles';
 
 
 const App = ({ checkUserSession, currentUser }) => {
@@ -28,6 +27,7 @@ const App = ({ checkUserSession, currentUser }) => {
     <div>
       <Router>
         <ScrollToTop>
+          <GlobalStyle />
           <Header />
           <Switch>
             <Route exact={true} path='/'>       

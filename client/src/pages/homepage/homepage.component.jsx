@@ -4,7 +4,7 @@ import { HomePageContainer } from './homepage.styles';
 // import "./homepage.styles.scss";
 
 const HomePage = () => (
-  <HomePageContainer>   {/* <div className="homepage">  */}
+  <HomePageContainer>
     <Directory />
   </HomePageContainer>
 );

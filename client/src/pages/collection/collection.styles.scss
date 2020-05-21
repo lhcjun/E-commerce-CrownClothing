@@ -13,7 +13,19 @@
         grid-gap: 10px;
 
         & .collection-item {
+            // & > div 
             margin-bottom: 30px;
+        }
+
+        @media screen and (max-width: 800px) {
+            grid-template-columns: 1fr 1fr;
+            row-gap: 35px;
+            column-gap: 0px;
+        }
+
+        @media screen and (max-width: 500px) {
+            grid-template-columns: 1fr;
+            row-gap: 25px;
         }
     }
 }

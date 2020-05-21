@@ -3,4 +3,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    @media screen and (max-width: 570px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+
+    @media screen and (max-width: 500px) {
+        width: 75vw;
+    }
 }

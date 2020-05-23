@@ -4,9 +4,9 @@ import { HomePageContainer } from './homepage.styles';
 // import "./homepage.styles.scss";
 
 const HomePage = () => (
-  <HomePageContainer>
-    <Directory />
-  </HomePageContainer>
+    <HomePageContainer>
+      <Directory />
+    </HomePageContainer>
 );
 
 export default HomePage;

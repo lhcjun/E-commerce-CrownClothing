@@ -6,7 +6,6 @@ export const MenuItemContainer = styled.div`
     height: ${({ size }) => size ? '380px' : '240px'};
 
     min-width: 30%;
-    height: 240px;
     flex: 1 1 auto; /* being inner: flex-grow, flex-shrink, flex-basis */
     display: flex; /* being outer box */
     align-items: center;
@@ -14,7 +13,6 @@ export const MenuItemContainer = styled.div`
     border: 1px solid black;
     margin: 0 7.5px 15px; /* T LR B */
     overflow: hidden; /* bg-img scale */
-
 
     &:hover {
         cursor: pointer;

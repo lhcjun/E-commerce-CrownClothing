@@ -9,7 +9,7 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
         onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
         <BackgroundImageContainer 
-            imageUrl={imageUrl}
+            imageUrl={imageUrl} className='background-image'  // for bg img transition
         />
         <ContentContainer>   {/* style={{backgroundImage: `url(${imageUrl})`}}  JS template strings */}
             <ContentTitle>{ title.toUpperCase() }</ContentTitle>

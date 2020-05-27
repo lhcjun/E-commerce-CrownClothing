@@ -36,17 +36,33 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+
+// user sign in > get user's cart info / set new cart
+export const getUserCartRef = async userId => {   // sign in success / currentUser
+  // collection ref / snapshot (related info - ex. db path)
+  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
+  const snapShot = await cartsRef.get();
+  
+  if(snapShot.empty) {
+    // if no user's cart related info > set new cart to database
+    const cartDocRef = firestore.collection('carts').doc();
+    await cartDocRef.set({ userId, cartItems: [] });
+    return cartDocRef;
+  }else{
+    // user's cart related info - ex. db path
+    return snapShot.docs[0].ref;
+  }
+};
+
+
 // Set value into firebase
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+export const addCollectionAndDocuments = async ( collectionKey, objectsToAdd ) => {
   // create new collection ref obj
   const collectionRef = firestore.collection(collectionKey);
-  console.log(collectionRef);
+  // console.log(collectionRef);
 
   const batch = firestore.batch();
-  objectsToAdd.forEach((obj) => {
+  objectsToAdd.forEach( obj => {
     // create new document ref obj (in collection)  with unique id
     const newDocRef = collectionRef.doc();
     console.log(newDocRef);
@@ -58,10 +74,10 @@ export const addCollectionAndDocuments = async (
 };
 
 // To get collections array data > convert to obj  (for data normalization)
-export const convertCollectionsSnapshotToMap = (collections) => {
+export const convertCollectionsSnapshotToMap = collections => {
   /* Firestore return an Array of Obj on the docs inside CollectionsReference Snapshot
        => get docs array(5)(collections obj) in querySnapshot obj */
-  const transformedCollection = collections.docs.map((doc) => {
+  const transformedCollection = collections.docs.map( doc => {
     // get actual data from each collection
     const { title, items } = doc.data();
     // return as obj (in array)
@@ -82,7 +98,7 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     // listen to login / logout event
-    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+    const unsubscribe = auth.onAuthStateChanged( userAuth => {
       unsubscribe();
       resolve(userAuth); // get updated userAuth obj
     }, reject);

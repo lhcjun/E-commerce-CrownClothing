@@ -14,19 +14,30 @@ export function* clearCartAfterPayment() {
   yield put(clearCart());
 }
 
+// pull user's cart from firebase after sign in > merge session storage cart into db
 export function* checkCartFromFirebase({ payload: user }) {  // sign in success
   // pass user id > get cart related info from firebase > return user's cart doc ref
   const cartRef = yield getUserCartRef(user.id);
   const cartSnapshot = yield cartRef.get();
-
   
-  // get state (cartItems before sign in)
-  // const cartItems = yield select(selectCartItems);
-  // const userDatabaseCart = cartSnapshot.data().cartItems;
+  // get actual cartItems > user's own cart pull from firebase db
+  const userCart = cartSnapshot.data().cartItems;
+  // get cartItems state (cartItems before sign in > session storage)
+  const browserCart = yield select(selectCartItems);
 
-  
-  // get actual cartItems > pass cartItems to set user's cart
-  yield put(setCartFromFirebase(cartSnapshot.data().cartItems));
+  // merge session storage into db (keep db item if a duplicate id is encountered)
+  let localAndDatabaseCart = [
+    ...userCart,
+    ...browserCart.filter(itemB => !userCart.some(itemA => itemA.id === itemB.id))
+  ];
+
+  // to update cartItems state
+  const cartItems = localAndDatabaseCart;
+  // update firebase user's cart
+  yield cartRef.update({ cartItems });
+
+  // pass cartItems to set user's cart
+  yield put(setCartFromFirebase(cartItems));
 }
 
 export function* updateCartInFirebase() {

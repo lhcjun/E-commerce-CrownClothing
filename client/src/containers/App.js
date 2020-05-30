@@ -43,9 +43,9 @@ const App = ({ checkUserSession, currentUser }) => {
                   <ContactPage />
                 </Route>
                 <Route exact path='/checkout'>
-                  <CheckoutPage />
+                  {currentUser ? <CheckoutPage /> : <SignInAndSignUpPage/>}
                 </Route>
-                <Route exact path='/signin'>        {/* 3.0  render */}
+                <Route exact path='/signin'>        {/* 3.0 - render */}
                   {currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage/>}
                 </Route>
               </Switch>

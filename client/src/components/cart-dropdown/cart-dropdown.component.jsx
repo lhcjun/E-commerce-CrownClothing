@@ -11,13 +11,13 @@ import { CartDropdownContainer, CartItemsContainer, EmptyMessageContainer, CartD
 // import './cart-dropdown.styles.scss';
 
 const CartDropdown = ({ cartItems, history, dispatch }) => (  /* cartItems = array */
-    <CartDropdownContainer>             {/* <div className='cart-dropdown'> */}
-        <CartItemsContainer>            {/* <div className='cart-items'> */}
+    <CartDropdownContainer>
+        <CartItemsContainer>
             {cartItems.length
               ? cartItems.map(cartItem => 
                   <CartItem key={cartItem.id} item={cartItem} /> 
                 )
-              : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>   /* <span className='empty-message'> */
+              : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>   /* span */
             }
         </CartItemsContainer>
         <CartDropdownButton onClick={() => {

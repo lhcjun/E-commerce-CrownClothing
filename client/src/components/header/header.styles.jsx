@@ -74,3 +74,4 @@ export const OptionLink = styled(Link)`
         padding: 10px 8px;
     }
 `;
+OptionLink.displayName = 'OptionLink';

@@ -14,7 +14,7 @@ import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './
 // import './header.styles.scss';
 
 
-const Header = ({ currentUser, hidden, signOutStart }) => (
+export const Header = ({ currentUser, hidden, signOutStart }) => (
     <HeaderContainer>                   {/* <nav className='header'>  */}
         <LogoContainer to='/'>          {/* <Link to='/' className='logo-container'> */}
             <Logo />

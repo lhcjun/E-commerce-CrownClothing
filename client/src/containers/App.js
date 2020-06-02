@@ -19,7 +19,7 @@ const CheckoutPage = lazy(() => import('../pages/checkout/checkout.component'));
 const ContactPage = lazy(() => import('../pages/contact/contact.component'));
 
 
-const App = ({ checkUserSession, currentUser }) => {
+export const App = ({ checkUserSession, currentUser }) => {
 
   useEffect(() => {
     // check if user has signed in

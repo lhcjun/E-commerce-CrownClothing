@@ -55,6 +55,8 @@ export const ItemBackgroundImage = styled.div`
     margin-bottom: 5px;
     background-image: ${ ({imageUrl}) => `url(${imageUrl})`}
 `;
+ItemBackgroundImage.displayName = 'ItemBackgroundImage';
+
 
 export const CollectionFooterContainer = styled.div`
     width: 100%;
@@ -69,10 +71,15 @@ export const NameContainer = styled.span`
     width: 90%;  /* take majority of space */
     margin-bottom: 15px;
 `;
+NameContainer.displayName = 'NameContainer';
+
+
 export const PriceContainer = styled.span`
     width: 10%;
     /* text-align: right; */
 `;
+PriceContainer.displayName = 'PriceContainer';
+
 
 export const AddButton = styled(CustomButton)`
     width: 80%;
@@ -97,3 +104,4 @@ export const AddButton = styled(CustomButton)`
         top: 285px;
     }
 `;
+AddButton.displayName = 'AddButton';

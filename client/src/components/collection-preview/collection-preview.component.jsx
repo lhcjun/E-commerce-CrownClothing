@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CollectionItem from '../collection-item/collection-item.component';
-import {   CollectionPreviewContainer, TitleContainer, PreviewContainer} from './collection-preview.styles';
+import { CollectionPreviewContainer, TitleContainer, PreviewContainer} from './collection-preview.styles';
 // import './collection-preview.styles.scss';
 
-const CollectionPreview = ({ title, items, routeName}) => (
+export const CollectionPreview = ({ title, items, routeName}) => (
     <CollectionPreviewContainer>
         <Link to={`/shop/${routeName}`}>
             <TitleContainer>

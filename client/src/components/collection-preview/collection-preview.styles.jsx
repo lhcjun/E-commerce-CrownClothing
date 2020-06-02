@@ -18,6 +18,8 @@ export const TitleContainer = styled.h1`
         color: grey;
     }
 `;
+TitleContainer.displayName = 'TitleContainer';
+
 
 export const PreviewContainer = styled.div`
     display: flex;   /* preview > each item (on same row) */
